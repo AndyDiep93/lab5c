@@ -25,9 +25,9 @@ public class ShoppingListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
         
-        getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
+        //getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
     }
 
     /**
@@ -41,6 +41,12 @@ public class ShoppingListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String name = request.getParameter("name");
+        
+        HttpSession session = request.getSession();
+        
+        session.setAttribute("name", name);
+        
         getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
     }
 
