@@ -27,17 +27,17 @@ public class ShoppingListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
+
         String name = (String) session.getAttribute("name");
-        
-        if (name == null){
+
+        if (name == null) {
             getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
         } else {
             getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
         }
-        
+
     }
-    
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -50,14 +50,19 @@ public class ShoppingListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getParameter("action");
-        
-        String name = request.getParameter("name");
-        
-        HttpSession session = request.getSession();
-        
-        session.setAttribute("name", name);
-        
-        getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
+
+        if (action != null && action.equals("add")) {
+
+        } else {
+            String name = request.getParameter("name");
+
+            HttpSession session = request.getSession();
+
+            session.setAttribute("name", name);
+
+            getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
+        }
+
     }
 
 }
