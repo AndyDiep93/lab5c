@@ -26,11 +26,18 @@ public class ShoppingListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+        HttpSession session = request.getSession();
         
-        //getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
+        String name = (String) session.getAttribute("name");
+        
+        if (name == null){
+            getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+        } else {
+            getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
+        }
+        
     }
-
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *
