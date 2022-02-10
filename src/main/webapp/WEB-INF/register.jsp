@@ -13,6 +13,6 @@
             <input type="text" name="name" id="name">
             
             <button type="submit">Register Name</button>
-        </form>
+        </form>        
     </body>
 </html>
