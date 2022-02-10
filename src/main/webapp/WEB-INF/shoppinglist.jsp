@@ -1,9 +1,3 @@
-<%-- 
-    Document   : shoppinglist
-    Created on : Feb. 10, 2022, 1:47:52 p.m.
-    Author     : andyd
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +6,17 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Shopping List</h1>
+        
+        <p>Hello, adam. <a href="">Logout</a></p>
+        
+        <h2>List</h2>
+        
+         <form>
+            <label for="item">Add item:</label>
+            <input type="text" name="item" id="item">
+            
+            <button type="submit">Add</button>
+        </form>  
     </body>
 </html>
