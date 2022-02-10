@@ -49,6 +49,8 @@ public class ShoppingListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getParameter("action");
+        
         String name = request.getParameter("name");
         
         HttpSession session = request.getSession();
@@ -57,6 +59,5 @@ public class ShoppingListServlet extends HttpServlet {
         
         getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
     }
-
 
 }
