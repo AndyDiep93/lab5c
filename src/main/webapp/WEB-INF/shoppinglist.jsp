@@ -18,5 +18,14 @@
             
             <button type="submit">Add</button>
         </form>  
+        
+        <form>
+            <p>
+            <input type="radio" name="item" value="apples">
+            apples
+            <p>
+                
+                <button type="submit">Delete</button>
+        </form>
     </body>
 </html>
