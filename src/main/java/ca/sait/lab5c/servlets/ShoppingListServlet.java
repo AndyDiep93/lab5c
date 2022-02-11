@@ -31,18 +31,17 @@ public class ShoppingListServlet extends HttpServlet {
 
         if (query != null && query.contains("logout")) {
             session.invalidate();
-
-            request.setAttribute("message", "You are logged out.");
+            request.setAttribute("message", "You are logged out");
             getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
         } else {
-            getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
             return;
         }
 
         if (name == null) {
             getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
         } else {
-            getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/WEB-INF/shoppingList.jsp").forward(request, response);
         }
     }
 
@@ -63,30 +62,23 @@ public class ShoppingListServlet extends HttpServlet {
 
         if (action != null && action.equals("add")) {
             String item = request.getParameter("item");
-
             ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
-
             items.add(item);
-
             session.setAttribute("items", items);
+            
         } else if (action != null && action.equals("delete")) {
             String item = request.getParameter("item");
-
             ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
-
             items.remove(item);
-
             session.setAttribute("items", items);
+            
         } else {
             String name = request.getParameter("name");
-
             ArrayList<String> items = new ArrayList<>();
-
             session.setAttribute("name", name);
             session.setAttribute("items", items);
         }
 
         getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
     }
-
 }
