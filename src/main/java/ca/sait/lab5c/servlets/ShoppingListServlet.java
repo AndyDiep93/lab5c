@@ -51,11 +51,6 @@ public class ShoppingListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-
-        if (session.getAttribute("name") == null) {
-            getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
-            return;
-        }
         
         String action = request.getParameter("action");
 
@@ -70,7 +65,6 @@ public class ShoppingListServlet extends HttpServlet {
         } else {
             String name = request.getParameter("name");
 
-            
             ArrayList<String> items = new ArrayList<>();
             
             session.setAttribute("name", name);
