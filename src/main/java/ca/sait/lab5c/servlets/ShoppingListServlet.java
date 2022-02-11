@@ -79,7 +79,19 @@ public class ShoppingListServlet extends HttpServlet {
             session.setAttribute("items", items);
         }
         
+         if (session.getAttribute("name") != null) {
+            String query = request.getQueryString();
+
+            if (query != null && query.contains("logout")) {
+                session.invalidate();
+                
+                request.setAttribute("message", "You are logged out.");
+            } else {
+                response.sendRedirect("ShoppingList");
+                return;
+            }
         getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
     }
 
+}
 }
