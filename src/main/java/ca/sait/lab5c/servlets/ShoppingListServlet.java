@@ -1,7 +1,6 @@
 package ca.sait.lab5c.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +10,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author andyd
+ * @author Andy Diep
  */
 public class ShoppingListServlet extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -28,15 +26,24 @@ public class ShoppingListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-
         String name = (String) session.getAttribute("name");
+        String query = request.getQueryString();
+
+        if (query != null && query.contains("logout")) {
+            session.invalidate();
+
+            request.setAttribute("message", "You are logged out.");
+            getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
+        } else {
+            getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
+            return;
+        }
 
         if (name == null) {
             getServletContext().getRequestDispatcher("/WEB-INF/register.jsp").forward(request, response);
         } else {
             getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
         }
-
     }
 
     /**
@@ -51,7 +58,7 @@ public class ShoppingListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
+
         String action = request.getParameter("action");
 
         if (action != null && action.equals("add")) {
@@ -62,13 +69,13 @@ public class ShoppingListServlet extends HttpServlet {
             items.add(item);
 
             session.setAttribute("items", items);
-        } else if (action != null && action.equals("delete")){
+        } else if (action != null && action.equals("delete")) {
             String item = request.getParameter("item");
-            
-             ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
+
+            ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
 
             items.remove(item);
-            
+
             session.setAttribute("items", items);
         } else {
             String name = request.getParameter("name");
@@ -78,20 +85,8 @@ public class ShoppingListServlet extends HttpServlet {
             session.setAttribute("name", name);
             session.setAttribute("items", items);
         }
-        
-         if (session.getAttribute("name") != null) {
-            String query = request.getQueryString();
 
-            if (query != null && query.contains("logout")) {
-                session.invalidate();
-                
-                request.setAttribute("message", "You are logged out.");
-            } else {
-                response.sendRedirect("ShoppingList");
-                return;
-            }
         getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
     }
 
-}
 }
