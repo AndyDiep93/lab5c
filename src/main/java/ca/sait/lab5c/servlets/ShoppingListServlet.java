@@ -56,23 +56,22 @@ public class ShoppingListServlet extends HttpServlet {
 
         if (action != null && action.equals("add")) {
             String item = request.getParameter("item");
-            
+
             ArrayList<String> items = (ArrayList<String>) session.getAttribute("items");
-            
+
             items.add(item);
-            
+
             session.setAttribute("items", items);
         } else {
             String name = request.getParameter("name");
 
             ArrayList<String> items = new ArrayList<>();
-            
+
             session.setAttribute("name", name);
             session.setAttribute("items", items);
-
-            getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
         }
-
+        
+        getServletContext().getRequestDispatcher("/WEB-INF/shoppinglist.jsp").forward(request, response);
     }
 
 }
